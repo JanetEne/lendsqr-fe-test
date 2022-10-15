@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import "./styles.scss";
 
 interface ButtonProps {
-  text: string;
-  variant: "transparent" | "block" | "fluid" | "danger" | "reset";
+  text: string | JSX.Element;
+  variant: "transparent" | "block" | "fluid" | "danger" | "reset" | "search";
 }
 
 const ButtonComponent: FC<
@@ -21,6 +21,8 @@ const ButtonComponent: FC<
             ? "fluidButton"
             : variant === "reset"
             ? "resetButton"
+            : variant === "search"
+            ? "searchButton"
             : "transparentButton"
         }`}
         {...rest}>
