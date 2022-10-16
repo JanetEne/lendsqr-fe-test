@@ -7,6 +7,8 @@ import { ReactComponent as Guarantors } from "assets/svg/guarantors.svg";
 import { ReactComponent as Loans } from "assets/svg/loans.svg";
 import { ReactComponent as Decisions } from "assets/svg/decisions.svg";
 import { ReactComponent as DashBoard } from "assets/svg/dashboardIcon.svg";
+import { ReactComponent as Briefcase } from "assets/svg/briefcase.svg";
+import { ReactComponent as FluidArrowDown } from "assets/svg/fluidArrowDown.svg";
 import { INavItems } from "core/interfaces/nav";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import NavBar from "components/navBar";
@@ -38,6 +40,26 @@ const Layout = () => {
       link: "/decisions",
       icon: <Decisions />,
     },
+    {
+      name: "Savings",
+      link: "/savings",
+      icon: <Decisions />,
+    },
+    {
+      name: "Loan Requests",
+      link: "/loan-requests",
+      icon: <Decisions />,
+    },
+    {
+      name: "Whitelist",
+      link: "/whitelist",
+      icon: <Decisions />,
+    },
+    {
+      name: "Karma",
+      link: "/karma",
+      icon: <Decisions />,
+    },
   ];
 
   const businessData: INavItems[] = [
@@ -61,6 +83,16 @@ const Layout = () => {
       link: "/Fees",
       icon: <Decisions />,
     },
+    {
+      name: "Transactions",
+      link: "/transactions",
+      icon: <Decisions />,
+    },
+    {
+      name: "Services",
+      link: "/services",
+      icon: <Decisions />,
+    },
   ];
 
   return (
@@ -78,10 +110,15 @@ const Layout = () => {
             </a>
           </div>
 
+          <div className="switchOrganization">
+            <Briefcase /> <span>Switch Organization</span>
+            <FluidArrowDown />
+          </div>
+
           <ul>
             <Link to={"/"}>
               <div
-                className={`flex ${
+                className={`${
                   location.pathname.includes("/app") ? "activeLink" : ""
                 }`}>
                 <li>
@@ -96,7 +133,7 @@ const Layout = () => {
             {customerData.map((item, index) => (
               <Link to={item.link} key={index}>
                 <div
-                  className={`flex ${
+                  className={`${
                     location.pathname.includes(item.link) ? "activeLink" : ""
                   }`}>
                   <li>

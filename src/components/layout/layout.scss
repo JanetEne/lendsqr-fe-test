@@ -31,6 +31,20 @@
       }
     }
 
+    .switchOrganization {
+      margin: 0 0 30px 20px;
+      display: flex;
+      align-items: center;
+
+      span {
+        font-weight: 400;
+        font-size: 16px;
+        color: var(--primary-color);
+        margin-left: 6px;
+        margin-right: 12px;
+      }
+    }
+
     h1 {
       font-weight: 500;
       font-size: 12px;
@@ -89,20 +103,21 @@
     }
 
     .iconContainer {
-      margin-bottom: 50px;
+      margin-bottom: 70px;
     }
   }
 
   .main {
     display: block;
     min-height: 100vh;
-    padding: 50px;
+    padding: 20px;
 
     @include lg {
       display: grid;
       grid-template-columns: 16.75rem 1fr;
       grid-template-rows: auto;
       min-height: 100vh;
+      padding: 50px;
     }
 
     main {
