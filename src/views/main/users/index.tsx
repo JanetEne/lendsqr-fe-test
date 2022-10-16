@@ -11,8 +11,13 @@ import { ReactComponent as ActivateUser } from "assets/svg/activate.svg";
 import "./styles.scss";
 import Badge from "components/badge";
 import Menu from "components/menu";
+import { useNavigate } from "react-router-dom";
+import FilterTray from "components/filterTray";
 
 const Users = () => {
+  const [showTray, setShowTray] = React.useState<boolean>(false);
+
+  const navigate = useNavigate();
   return (
     <div className="userContainer">
       <h5>Users</h5>
@@ -44,7 +49,7 @@ const Users = () => {
       </div>
       <div className="tableContainer">
         <table>
-          <thead>
+          <thead onClick={() => setShowTray(!showTray)}>
             <tr>
               <th>
                 <div className="header">
@@ -91,7 +96,7 @@ const Users = () => {
             {Array(7)
               .fill(0)
               .map((items, index: number) => (
-                <tr>
+                <tr key={index}>
                   <td>
                     <h6>Lendsqr</h6>
                   </td>
@@ -113,7 +118,9 @@ const Users = () => {
                   <td>
                     <Menu>
                       <div>
-                        <div className="menuIconText">
+                        <div
+                          className="menuIconText"
+                          onClick={() => navigate("/app/user-details")}>
                           <EyeIcon />
                           <h2>View Details</h2>
                         </div>
@@ -131,6 +138,7 @@ const Users = () => {
                 </tr>
               ))}
           </tbody>
+          {showTray && <FilterTray />}
         </table>
       </div>
     </div>

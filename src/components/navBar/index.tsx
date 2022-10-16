@@ -45,7 +45,7 @@ const NavBar: React.FC<INavbarProps> = ({ onClick }) => {
             </div>
             <div className="imageProfileContainer">
               <div className="imageContainer">
-                <img src={ProfileImage} alt="profile image" />
+                <img src={ProfileImage} alt="profile avatar" />
               </div>
               <div className="nameIconContainer">
                 <h4>Adedeji</h4>

@@ -36,6 +36,7 @@
     border: 1px solid rgba(33, 63, 125, 0.06);
     box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
     border-radius: 4px;
+    position: relative;
 
     @include lg {
       padding: 30px 20px;
@@ -44,6 +45,11 @@
     table {
       width: 100%;
       border-collapse: collapse;
+    }
+
+    table thead {
+      cursor: pointer;
+
     }
 
     table th .header {
@@ -81,6 +87,7 @@
       display: flex;
       align-items: center;
       margin-bottom: 15px;
+      cursor: pointer;
 
       h2 {
         font-weight: 500;

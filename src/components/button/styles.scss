@@ -1,12 +1,19 @@
+@import "../../styles/breakpoints.scss";
+
 button {
   border: none;
-  font-size: 14px;
-font-weight: 600;
-border-radius: 8px;
-width: 100%;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 8px;
+  width: 100%;
+
+  @include xl {
+    font-size: 14px;
+  }
 }
 
-.blockButton, .fluidButton {
+.blockButton,
+.fluidButton {
   height: 48px;
   background-color: var(--secondary-color);
   color: white;
@@ -15,7 +22,7 @@ width: 100%;
 
 .fluidButton {
   height: 40px;
-  color: var(--secondary-color);
+  color: white;
   font-family: var(--body-font);
 }
 

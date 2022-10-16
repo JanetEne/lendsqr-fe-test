@@ -3,6 +3,7 @@ import Layout from "components/layout";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./dashboard";
 import Users from "./users";
+import UserDetails from "./userDetails";
 
 const Main = () => {
   return (
@@ -10,6 +11,7 @@ const Main = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="users" element={<Users />} />
+        <Route path="user-details" element={<UserDetails />} />
       </Route>
     </Routes>
   );

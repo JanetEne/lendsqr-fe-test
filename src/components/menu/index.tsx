@@ -8,12 +8,6 @@ interface IMenuProps {
 
 const Menu: React.FC<IMenuProps> = ({ children }) => {
   const [showOptions, setShowOptions] = React.useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = React.useState(null);
-
-  const onOptionClicked = (value: any) => {
-    setSelectedOption(value);
-    setShowOptions(false);
-  };
 
   return (
     <div className="menuContainer">
@@ -24,7 +18,6 @@ const Menu: React.FC<IMenuProps> = ({ children }) => {
       </div>
       {showOptions && (
         <div
-          onClick={onOptionClicked}
           className={`menuChildrenContainer ${
             showOptions ? "showMenu" : "hideMenu"
           }`}>

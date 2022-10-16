@@ -120,7 +120,8 @@ const Layout = () => {
               <div
                 className={`${
                   location.pathname.includes("/app") ? "activeLink" : ""
-                }`}>
+                }`}
+                onClick={() => setToggle(false)}>
                 <li>
                   <DashBoard /> <span>Dashboard</span>
                 </li>
@@ -135,7 +136,8 @@ const Layout = () => {
                 <div
                   className={`${
                     location.pathname.includes(item.link) ? "activeLink" : ""
-                  }`}>
+                  }`}
+                  onClick={() => setToggle(false)}>
                   <li>
                     {item.icon} <span>{item.name}</span>
                   </li>
@@ -155,7 +157,8 @@ const Layout = () => {
                 <div
                   className={`flex ${
                     location.pathname.includes(item.link) ? "activeLink" : ""
-                  }`}>
+                  }`}
+                  onClick={() => setToggle(false)}>
                   <li>
                     {item.icon} <span>{item.name}</span>
                   </li>
