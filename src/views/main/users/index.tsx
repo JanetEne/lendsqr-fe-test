@@ -8,14 +8,53 @@ import { ReactComponent as TableIcon } from "assets/svg/tableIcon.svg";
 import { ReactComponent as EyeIcon } from "assets/svg/eye.svg";
 import { ReactComponent as BlackListUser } from "assets/svg/blacklist.svg";
 import { ReactComponent as ActivateUser } from "assets/svg/activate.svg";
-import "./styles.scss";
+import { ReactComponent as BackArrow } from "assets/svg/paginationBackArrow.svg";
+import { ReactComponent as FrontArrow } from "assets/svg/paginationFowardArrow.svg";
+import { ReactComponent as ArrowDown } from "assets/svg/fluidArrowDown.svg";
 import Badge from "components/badge";
 import Menu from "components/menu";
 import { useNavigate } from "react-router-dom";
 import FilterTray from "components/filterTray";
+import { API_URL } from "services/api";
+import { IUserResponse } from "core/interfaces/user";
+import moment from "moment";
+import ButtonComponent from "components/button";
+import "./styles.scss";
+import UserContext from "context/userContext";
 
 const Users = () => {
   const [showTray, setShowTray] = React.useState<boolean>(false);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const { updateUserDetails } = React.useContext(UserContext);
+  const [userId, setUserId] = React.useState<string>("");
+  const usersPerPage = 10;
+  const [usersData, setUsersData] = React.useState<IUserResponse[]>([]);
+
+  const totalPage = Math.ceil(usersData.length / usersPerPage);
+
+  const totalVIewedItems = currentPage * usersPerPage;
+
+  const firstUserItem = totalVIewedItems - usersPerPage;
+
+  const newUserData = usersData.slice(firstUserItem, totalVIewedItems);
+
+  React.useEffect(() => {
+    fetch(API_URL)
+      .then((response) => response.json())
+      .then((data) => setUsersData(data));
+  }, [currentPage]);
+
+  React.useEffect(() => {
+    if (userId !== "") {
+      fetch(`${API_URL}/${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          updateUserDetails(data);
+          navigate("/user-details");
+        });
+    }
+  }, [userId]);
 
   const navigate = useNavigate();
   return (
@@ -93,53 +132,84 @@ const Users = () => {
           </thead>
 
           <tbody>
-            {Array(7)
-              .fill(0)
-              .map((items, index: number) => (
-                <tr key={index}>
-                  <td>
-                    <h6>Lendsqr</h6>
-                  </td>
-                  <td>
-                    <h6>Adedeji</h6>
-                  </td>
-                  <td>
-                    <h6>adedeji@gmail.com</h6>
-                  </td>
-                  <td>
-                    <h6>08078903721</h6>
-                  </td>
-                  <td>
-                    <h6>May 15, 2020 10:00 AM</h6>
-                  </td>
-                  <td>
-                    <Badge text={"Active"} type={"active"} />
-                  </td>
-                  <td>
-                    <Menu>
-                      <div>
-                        <div
-                          className="menuIconText"
-                          onClick={() => navigate("/app/user-details")}>
-                          <EyeIcon />
-                          <h2>View Details</h2>
+            {newUserData
+              ? newUserData.map((user: IUserResponse, index: number) => (
+                  <tr key={index}>
+                    <td>
+                      <h6>{user.orgName}</h6>
+                    </td>
+                    <td>
+                      <h6>{user.userName}</h6>
+                    </td>
+                    <td>
+                      <h6>{user.email}</h6>
+                    </td>
+                    <td>
+                      <h6>{user.phoneNumber}</h6>
+                    </td>
+                    <td>
+                      <h6>{moment(user.createdAt).format("LLL")}</h6>
+                    </td>
+                    <td>
+                      <Badge text={"Active"} type={"active"} />
+                    </td>
+                    <td>
+                      <Menu>
+                        <div>
+                          <div
+                            className="menuIconText"
+                            onClick={() => setUserId(user.id)}>
+                            <EyeIcon />
+                            <h2>View Details</h2>
+                          </div>
+                          <div className="menuIconText">
+                            <BlackListUser />
+                            <h2>Blacklist User</h2>
+                          </div>
+                          <div className="menuIconText">
+                            <ActivateUser />
+                            <h2>Activate User</h2>
+                          </div>
                         </div>
-                        <div className="menuIconText">
-                          <BlackListUser />
-                          <h2>Blacklist User</h2>
-                        </div>
-                        <div className="menuIconText">
-                          <ActivateUser />
-                          <h2>Activate User</h2>
-                        </div>
-                      </div>
-                    </Menu>
-                  </td>
-                </tr>
-              ))}
+                      </Menu>
+                    </td>
+                  </tr>
+                ))
+              : ""}
           </tbody>
           {showTray && <FilterTray />}
         </table>
+      </div>
+
+      <div className="paginationContainer">
+        <div className="dropdownComponent">
+          <h6>Showing</h6>
+          <div className="dropdown">
+            <h6>{totalVIewedItems}</h6>
+            <ArrowDown />
+          </div>
+          <h3>out of</h3>
+          <h3>{usersData.length}</h3>
+        </div>
+        <div className="paginationComponent">
+          <div className="arrowContainer">
+            <ButtonComponent
+              text={<BackArrow />}
+              onClick={() => setCurrentPage(currentPage - 1)}
+              variant={"search"}
+              disabled={currentPage === 1}
+            />
+          </div>
+          <div></div>
+          <div className="arrowContainer">
+            <ButtonComponent
+              text={<FrontArrow />}
+              onClick={() => setCurrentPage(currentPage + 1)}
+              variant={"search"}
+              disabled={currentPage === totalPage}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

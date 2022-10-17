@@ -6,9 +6,9 @@ import Main from "views/main";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="app/*" element={<Main />} />
-      <Route path="/" element={<Navigate replace to="/app" />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/*" element={<Main />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
     </Routes>
   );
 };

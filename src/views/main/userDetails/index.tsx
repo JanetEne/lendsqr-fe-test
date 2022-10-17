@@ -4,14 +4,20 @@ import { ReactComponent as BackArrow } from "assets/svg/backArrow.svg";
 import { ReactComponent as ProfileIcon } from "assets/svg/profile.svg";
 import "./styles.scss";
 import { useNavigate } from "react-router-dom";
+import UserContext from "context/userContext";
 
 const UserDetails = () => {
+  const { userDetails } = React.useContext(UserContext);
   const navigate = useNavigate();
+  console.log(userDetails);
+
+  const userName = `${userDetails.profile.firstName} ${userDetails.profile.lastName}`;
+
   return (
     <div className="userDetailsContainer">
       <div
         className="backArrowContainer"
-        onClick={() => navigate("/app/users")}
+        onClick={() => navigate("/users")}
         style={{ cursor: "pointer" }}>
         <BackArrow />
         <h3>Back to Users</h3>
@@ -35,11 +41,14 @@ const UserDetails = () => {
         <div className="detailsSection">
           <div className="detailsContainer">
             <div className="profileDetailsContainer">
-              <div className="profileContainer">
-                <ProfileIcon />
+              <div>
+                <img
+                  src={userDetails.profile.avatar}
+                  className="profileContainer"
+                />
               </div>
               <div className="textContainer">
-                <h2>Grace Effiom</h2>
+                <h2>{userName}</h2>
                 <h6>LSQFf587g90</h6>
               </div>
             </div>
@@ -76,23 +85,23 @@ const UserDetails = () => {
         <div className="personalInformationSection">
           <div>
             <h3>Full Name</h3>
-            <h6>Grace Effiom</h6>
+            <h6>{userName}</h6>
           </div>
           <div>
             <h3>Phone Number</h3>
-            <h6>08055443377</h6>
+            <h6>{userDetails.profile.phoneNumber}</h6>
           </div>
           <div>
             <h3>Email Address</h3>
-            <h6>graceeffiom@gmail.com</h6>
+            <h6>{userDetails.email}</h6>
           </div>
           <div>
             <h3>BVN</h3>
-            <h6>2233445566</h6>
+            <h6>{userDetails.profile.bvn}</h6>
           </div>
           <div>
             <h3>Gender</h3>
-            <h6>Female</h6>
+            <h6>{userDetails.profile.gender}</h6>
           </div>
           <div>
             <h3>Marital Status</h3>

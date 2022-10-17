@@ -17,12 +17,11 @@ import "./layout.scss";
 const Layout = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
   const location = useLocation();
-  console.log(location.pathname);
 
   const customerData: INavItems[] = [
     {
       name: "Users",
-      link: "/app/users",
+      link: "/users",
       icon: <Users />,
     },
     {
@@ -104,10 +103,10 @@ const Layout = () => {
             <Close />
           </i>
           <div className="iconContainer">
-            <a href={"/app/home"}>
-              <UnionLogo />
+            <UnionLogo />
+            <div className="lendsqrLogo">
               <LendsqrLogo />
-            </a>
+            </div>
           </div>
 
           <div className="switchOrganization">
@@ -119,7 +118,7 @@ const Layout = () => {
             <Link to={"/"}>
               <div
                 className={`${
-                  location.pathname.includes("/app") ? "activeLink" : ""
+                  location.pathname.includes("/") ? "activeLink" : ""
                 }`}
                 onClick={() => setToggle(false)}>
                 <li>

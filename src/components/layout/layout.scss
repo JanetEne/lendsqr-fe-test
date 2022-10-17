@@ -103,7 +103,14 @@
     }
 
     .iconContainer {
-      margin-bottom: 70px;
+      padding-left: 30px;
+      margin-top: 30px;
+      margin-bottom: 50px;
+      display: flex;
+
+      .lendsqrLogo {
+        margin-left: 10px;
+      }
     }
   }
 
