@@ -1,4 +1,4 @@
-# Dashboard-Lendsqr Frontend Engineering Test
+# Lendsqr Frontend Engineering Test
 
 Mobile-friendly dashboard for leadsqr; a cloud-based, lending platform designed for small and medium-sized lenders, providing smart features at a zero upfront cost.
 
