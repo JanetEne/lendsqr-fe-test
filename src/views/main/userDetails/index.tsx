@@ -1,23 +1,28 @@
 import ButtonComponent from "components/button";
 import React from "react";
 import { ReactComponent as BackArrow } from "assets/svg/backArrow.svg";
-import { ReactComponent as ProfileIcon } from "assets/svg/profile.svg";
-import "./styles.scss";
+import { ReactComponent as TransparentStar } from "assets/svg/transparentStar.svg";
+import { ReactComponent as BlockStar } from "assets/svg/blockStar.svg";
 import { useNavigate } from "react-router-dom";
 import UserContext from "context/userContext";
+import "./styles.scss";
 
 const UserDetails = () => {
   const { userDetails } = React.useContext(UserContext);
   const navigate = useNavigate();
-  console.log(userDetails);
 
-  const userName = `${userDetails.profile.firstName} ${userDetails.profile.lastName}`;
+  const userName = `${userDetails?.profile?.firstName} ${userDetails?.profile?.lastName}`;
+  const guarantorUserName = `${userDetails?.guarantor?.firstName} ${userDetails?.guarantor?.lastName}`;
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="userDetailsContainer">
       <div
         className="backArrowContainer"
-        onClick={() => navigate("/users")}
+        onClick={() => navigate("/app/users")}
         style={{ cursor: "pointer" }}>
         <BackArrow />
         <h3>Back to Users</h3>
@@ -43,7 +48,8 @@ const UserDetails = () => {
             <div className="profileDetailsContainer">
               <div>
                 <img
-                  src={userDetails.profile.avatar}
+                  src={userDetails?.profile?.avatar}
+                  alt="profile avatar"
                   className="profileContainer"
                 />
               </div>
@@ -52,14 +58,28 @@ const UserDetails = () => {
                 <h6>LSQFf587g90</h6>
               </div>
             </div>
-            <div className="line"></div>
+
             <div className="usersTier">
-              <h5>Users Tier</h5>
+              <div className="textStarsContainer">
+                <h5>Users Tier</h5>
+                <div className="starContainer">
+                  <BlockStar />
+                  <TransparentStar />
+                  <TransparentStar />
+                </div>
+              </div>
+            </div>
+
+            <div className="usersAccountContainer">
+              <div className="accountBalance">
+                <h1>{`₦${userDetails?.accountBalance?.toString()}`}</h1>
+                <h5>{userDetails?.accountNumber}</h5>
+              </div>
             </div>
           </div>
         </div>
         <div className="tabs">
-          <div className="options">
+          <div className="generalOptions">
             <h5>General Details</h5>
           </div>
           <div className="options">
@@ -89,19 +109,19 @@ const UserDetails = () => {
           </div>
           <div>
             <h3>Phone Number</h3>
-            <h6>{userDetails.profile.phoneNumber}</h6>
+            <h6>{userDetails?.profile?.phoneNumber}</h6>
           </div>
           <div>
             <h3>Email Address</h3>
-            <h6>{userDetails.email}</h6>
+            <h6>{userDetails?.email}</h6>
           </div>
           <div>
             <h3>BVN</h3>
-            <h6>{userDetails.profile.bvn}</h6>
+            <h6>{userDetails?.profile?.bvn}</h6>
           </div>
           <div>
             <h3>Gender</h3>
-            <h6>{userDetails.profile.gender}</h6>
+            <h6>{userDetails?.profile?.gender}</h6>
           </div>
           <div>
             <h3>Marital Status</h3>
@@ -112,8 +132,8 @@ const UserDetails = () => {
             <h6>None</h6>
           </div>
           <div>
-            <h3>Type of Residence</h3>
-            <h6>Parents Apartment</h6>
+            <h3>Address</h3>
+            <h6>{userDetails?.profile?.address}</h6>
           </div>
         </div>
 
@@ -121,31 +141,31 @@ const UserDetails = () => {
         <div className="educationInformationSection">
           <div>
             <h3>Level of Education</h3>
-            <h6>B.sc</h6>
+            <h6>{userDetails?.education?.level}</h6>
           </div>
           <div>
             <h3>Employment Status</h3>
-            <h6>Employed</h6>
+            <h6>{userDetails?.education?.employmentStatus}</h6>
           </div>
           <div>
             <h3>Sector of employment</h3>
-            <h6>fintech</h6>
+            <h6>{userDetails?.education?.sector}</h6>
           </div>
           <div>
             <h3>duration of employment</h3>
-            <h6>2 years</h6>
+            <h6>{userDetails?.education?.duration}</h6>
           </div>
           <div>
             <h3>office email</h3>
-            <h6>grace@lendsqr.com</h6>
+            <h6>{userDetails?.education?.officeEmail}</h6>
           </div>
           <div>
             <h3>Monthly Income</h3>
-            <h6>₦200,000.00- ₦400,000.00</h6>
+            <h6>{`₦${userDetails?.education?.monthlyIncome[0]} - ₦${userDetails?.education?.monthlyIncome[1]}`}</h6>
           </div>
           <div>
             <h3>Loan repayment</h3>
-            <h6>4 years</h6>
+            <h6>{userDetails?.education?.loanRepayment}</h6>
           </div>
         </div>
 
@@ -153,15 +173,15 @@ const UserDetails = () => {
         <div className="socialsInformationSection">
           <div>
             <h3>Twitter</h3>
-            <h6>@grace_effiom</h6>
+            <h6>{userDetails?.socials?.twitter}</h6>
           </div>
           <div>
             <h3>Facebook</h3>
-            <h6>Grace Effiom</h6>
+            <h6>{userDetails?.socials?.facebook}</h6>
           </div>
           <div>
             <h3>Instagram</h3>
-            <h6>@grace_effiom</h6>
+            <h6>{userDetails?.socials?.instagram}</h6>
           </div>
         </div>
 
@@ -169,19 +189,21 @@ const UserDetails = () => {
         <div className="guarantorInformationSection">
           <div>
             <h3>Full Name</h3>
-            <h6>Grace Effiom</h6>
+            <h6>{guarantorUserName}</h6>
           </div>
           <div>
             <h3>Phone Number</h3>
-            <h6>08055443377</h6>
+            <h6>{userDetails?.guarantor?.phoneNumber}</h6>
           </div>
           <div>
-            <h3>Email Address</h3>
-            <h6>graceeffiom@gmail.com</h6>
-          </div>{" "}
+            <h3>Gender</h3>
+            <h6>{userDetails?.guarantor?.gender}</h6>
+          </div>
           <div>
             <h3>Relationship</h3>
-            <h6>Sister</h6>
+            <h6>
+              {userDetails?.guarantor?.gender === "Male" ? "Brother" : "Sister"}
+            </h6>
           </div>
         </div>
       </div>

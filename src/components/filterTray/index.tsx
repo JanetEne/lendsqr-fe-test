@@ -8,7 +8,11 @@ const FilterTray = () => {
     <div className="filterTrayContainer">
       <div className="filterProperties">
         <h3>Organization</h3>
-        <InputComponent type={""} placeholder={""} />
+        <div className="selectContainer">
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
       </div>
       <div className="filterProperties">
         <h3>Username</h3>
@@ -28,7 +32,11 @@ const FilterTray = () => {
       </div>
       <div className="filterProperties">
         <h3>Status</h3>
-        <InputComponent type={""} placeholder={""} />
+        <div className="selectContainer">
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
       </div>
       <div className="buttonContainer">
         <ButtonComponent text={"Reset"} variant={"reset"} />

@@ -21,8 +21,10 @@ import moment from "moment";
 import ButtonComponent from "components/button";
 import "./styles.scss";
 import UserContext from "context/userContext";
+import Spinner from "components/spinner";
 
 const Users = () => {
+  const navigate = useNavigate();
   const [showTray, setShowTray] = React.useState<boolean>(false);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -40,9 +42,13 @@ const Users = () => {
   const newUserData = usersData.slice(firstUserItem, totalVIewedItems);
 
   React.useEffect(() => {
+    setLoading(true);
     fetch(API_URL)
       .then((response) => response.json())
-      .then((data) => setUsersData(data));
+      .then((data) => {
+        setUsersData(data);
+        setLoading(false);
+      });
   }, [currentPage]);
 
   React.useEffect(() => {
@@ -51,12 +57,11 @@ const Users = () => {
         .then((response) => response.json())
         .then((data) => {
           updateUserDetails(data);
-          navigate("/user-details");
+          navigate("/app/user-details");
         });
     }
-  }, [userId]);
+  }, [userId, updateUserDetails, navigate]);
 
-  const navigate = useNavigate();
   return (
     <div className="userContainer">
       <h5>Users</h5>
@@ -132,50 +137,57 @@ const Users = () => {
           </thead>
 
           <tbody>
-            {newUserData
-              ? newUserData.map((user: IUserResponse, index: number) => (
-                  <tr key={index}>
-                    <td>
-                      <h6>{user.orgName}</h6>
-                    </td>
-                    <td>
-                      <h6>{user.userName}</h6>
-                    </td>
-                    <td>
-                      <h6>{user.email}</h6>
-                    </td>
-                    <td>
-                      <h6>{user.phoneNumber}</h6>
-                    </td>
-                    <td>
-                      <h6>{moment(user.createdAt).format("LLL")}</h6>
-                    </td>
-                    <td>
-                      <Badge text={"Active"} type={"active"} />
-                    </td>
-                    <td>
-                      <Menu>
-                        <div>
-                          <div
-                            className="menuIconText"
-                            onClick={() => setUserId(user.id)}>
-                            <EyeIcon />
-                            <h2>View Details</h2>
-                          </div>
-                          <div className="menuIconText">
-                            <BlackListUser />
-                            <h2>Blacklist User</h2>
-                          </div>
-                          <div className="menuIconText">
-                            <ActivateUser />
-                            <h2>Activate User</h2>
-                          </div>
+            {loading ? (
+              <tr>
+                <td>
+                  <Spinner />
+                </td>
+              </tr>
+            ) : (
+              newUserData &&
+              newUserData.map((user: IUserResponse, index: number) => (
+                <tr key={index}>
+                  <td>
+                    <h6>{user.orgName}</h6>
+                  </td>
+                  <td>
+                    <h6>{user.userName}</h6>
+                  </td>
+                  <td>
+                    <h6>{user.email}</h6>
+                  </td>
+                  <td>
+                    <h6>{user.phoneNumber}</h6>
+                  </td>
+                  <td>
+                    <h6>{moment(user.createdAt).format("LLL")}</h6>
+                  </td>
+                  <td>
+                    <Badge text={"Active"} type={"active"} />
+                  </td>
+                  <td>
+                    <Menu>
+                      <div>
+                        <div
+                          className="menuIconText"
+                          onClick={() => setUserId(user.id)}>
+                          <EyeIcon />
+                          <h2>View Details</h2>
                         </div>
-                      </Menu>
-                    </td>
-                  </tr>
-                ))
-              : ""}
+                        <div className="menuIconText">
+                          <BlackListUser />
+                          <h2>Blacklist User</h2>
+                        </div>
+                        <div className="menuIconText">
+                          <ActivateUser />
+                          <h2>Activate User</h2>
+                        </div>
+                      </div>
+                    </Menu>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
           {showTray && <FilterTray />}
         </table>
@@ -192,7 +204,8 @@ const Users = () => {
           <h3>{usersData.length}</h3>
         </div>
         <div className="paginationComponent">
-          <div className="arrowContainer">
+          <div
+            className={`arrowContainer ${currentPage === 1 ? "disabled" : ""}`}>
             <ButtonComponent
               text={<BackArrow />}
               onClick={() => setCurrentPage(currentPage - 1)}
@@ -201,7 +214,10 @@ const Users = () => {
             />
           </div>
           <div></div>
-          <div className="arrowContainer">
+          <div
+            className={`arrowContainer ${
+              currentPage === totalPage ? "disabled" : ""
+            }`}>
             <ButtonComponent
               text={<FrontArrow />}
               onClick={() => setCurrentPage(currentPage + 1)}

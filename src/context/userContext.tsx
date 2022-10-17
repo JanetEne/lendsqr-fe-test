@@ -10,12 +10,12 @@ interface IUserContext {
   updateUserDetails: (value?: IUserResponse) => void;
 }
 
-const UserContext = React.createContext<IUserContext>({} as IUserContext);
-export const UserProvider = UserContext.Provider;
-
 interface Props {
   children?: JSX.Element | JSX.Element[];
 }
+
+const UserContext = React.createContext<IUserContext>({} as IUserContext);
+export const UserProvider = UserContext.Provider;
 
 export const UserProviderContainer: React.FC<Props> = ({ children }) => {
   const [userDetails, setUserDetails] = React.useState<IUserResponse>(

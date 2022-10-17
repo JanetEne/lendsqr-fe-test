@@ -14,9 +14,6 @@
   /*===== TYPOGRAPHY ====*/
   --body-font: 'Work Sans', sans-serif;
   --regular-font: "avenir_next_lt_proregular", sans-serif;
-  --bold-font: "avenir_next_lt_probold", sans-serif
-
-
-  /*==== SIZES ====*/
-  --navbar-height: 110px;
+  --bold-font: "avenir_next_lt_probold", sans-serif;
+  --tabs-font: "sf_compact_textregular", sans-serif;
 }

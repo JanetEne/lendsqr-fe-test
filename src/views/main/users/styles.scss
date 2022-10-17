@@ -240,8 +240,16 @@
           height: 25px;
         }
       }
+
+      .disabled {
+        button {
+          background: rgba(33, 63, 125, 0.03);
+        }
+
+        svg path {
+          fill: rgba(33, 63, 125, 0.6)
+        }
+      }
     }
-
-
   }
 }

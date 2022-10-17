@@ -9,6 +9,22 @@ import { ReactComponent as Decisions } from "assets/svg/decisions.svg";
 import { ReactComponent as DashBoard } from "assets/svg/dashboardIcon.svg";
 import { ReactComponent as Briefcase } from "assets/svg/briefcase.svg";
 import { ReactComponent as FluidArrowDown } from "assets/svg/fluidArrowDown.svg";
+import { ReactComponent as Savings } from "assets/svg/savings.svg";
+import { ReactComponent as LoanRequest } from "assets/svg/loanRequests.svg";
+import { ReactComponent as WhiteList } from "assets/svg/whitelist.svg";
+import { ReactComponent as Karma } from "assets/svg/karma.svg";
+import { ReactComponent as SavingProducts } from "assets/svg/savingProducts.svg";
+import { ReactComponent as Fees } from "assets/svg/feesPricing.svg";
+import { ReactComponent as Transactions } from "assets/svg/transactions.svg";
+import { ReactComponent as Services } from "assets/svg/services.svg";
+import { ReactComponent as ServiceAccount } from "assets/svg/serviceAmount.svg";
+import { ReactComponent as SettleMents } from "assets/svg/settlements.svg";
+import { ReactComponent as Report } from "assets/svg/reports.svg";
+import { ReactComponent as Preferences } from "assets/svg/preference.svg";
+import { ReactComponent as Audit } from "assets/svg/audit.svg";
+import { ReactComponent as SystemMsgs } from "assets/svg/systemMsgs.svg";
+import { ReactComponent as Logout } from "assets/svg/logout.svg";
+
 import { INavItems } from "core/interfaces/nav";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import NavBar from "components/navBar";
@@ -21,7 +37,7 @@ const Layout = () => {
   const customerData: INavItems[] = [
     {
       name: "Users",
-      link: "/users",
+      link: "/app/users",
       icon: <Users />,
     },
     {
@@ -42,22 +58,22 @@ const Layout = () => {
     {
       name: "Savings",
       link: "/savings",
-      icon: <Decisions />,
+      icon: <Savings />,
     },
     {
       name: "Loan Requests",
       link: "/loan-requests",
-      icon: <Decisions />,
+      icon: <LoanRequest />,
     },
     {
       name: "Whitelist",
       link: "/whitelist",
-      icon: <Decisions />,
+      icon: <WhiteList />,
     },
     {
       name: "Karma",
       link: "/karma",
-      icon: <Decisions />,
+      icon: <Karma />,
     },
   ];
 
@@ -65,32 +81,70 @@ const Layout = () => {
     {
       name: "Organization",
       link: "/organization",
-      icon: <Users />,
+      icon: <Briefcase />,
     },
     {
       name: "Loan Products",
       link: "/loans",
-      icon: <Guarantors />,
+      icon: <LoanRequest />,
     },
     {
       name: "Savings Product",
       link: "/savings",
-      icon: <Loans />,
+      icon: <SavingProducts />,
     },
     {
       name: "Fees and Charges",
       link: "/Fees",
-      icon: <Decisions />,
+      icon: <Fees />,
     },
     {
       name: "Transactions",
       link: "/transactions",
-      icon: <Decisions />,
+      icon: <Transactions />,
     },
     {
       name: "Services",
       link: "/services",
-      icon: <Decisions />,
+      icon: <Services />,
+    },
+    {
+      name: "Service Account",
+      link: "/services",
+      icon: <ServiceAccount />,
+    },
+    {
+      name: "Settlements",
+      link: "/settlement",
+      icon: <SettleMents />,
+    },
+    {
+      name: "Reports",
+      link: "/report",
+      icon: <Report />,
+    },
+  ];
+
+  const settings: INavItems[] = [
+    {
+      name: "Preferences",
+      link: "/preference",
+      icon: <Preferences />,
+    },
+    {
+      name: "Fees and Pricing",
+      link: "/feees",
+      icon: <Fees />,
+    },
+    {
+      name: "Audit Logs",
+      link: "/audit",
+      icon: <Audit />,
+    },
+    {
+      name: "System Messages",
+      link: "/system",
+      icon: <SystemMsgs />,
     },
   ];
 
@@ -115,10 +169,10 @@ const Layout = () => {
           </div>
 
           <ul>
-            <Link to={"/"}>
+            <Link to={"/app"}>
               <div
                 className={`${
-                  location.pathname.includes("/") ? "activeLink" : ""
+                  location.pathname === "/app" ? "activeLink" : ""
                 }`}
                 onClick={() => setToggle(false)}>
                 <li>
@@ -143,11 +197,6 @@ const Layout = () => {
                 </div>
               </Link>
             ))}
-            {/* <li className="logout">
-              <Link to="">
-                <Users /> <span>Logout</span>
-              </Link>
-            </li> */}
           </ul>
           <h1>BUSINESSES</h1>
           <ul>
@@ -164,6 +213,31 @@ const Layout = () => {
                 </div>
               </Link>
             ))}
+          </ul>
+
+          <h1>SETTINGS</h1>
+          <ul>
+            {settings.map((item, index) => (
+              <Link to={item.link} key={index}>
+                <div
+                  className={`${
+                    location.pathname.includes(item.link) ? "activeLink" : ""
+                  }`}
+                  onClick={() => setToggle(false)}>
+                  <li>
+                    {item.icon} <span>{item.name}</span>
+                  </li>
+                </div>
+              </Link>
+            ))}
+          </ul>
+
+          <ul>
+            <div className="logout" onClick={() => setToggle(false)}>
+              <li>
+                <Logout /> <span>Logout</span>
+              </li>
+            </div>
           </ul>
         </>
       </aside>

@@ -53,20 +53,23 @@
   }
 
   .profileCard {
-    height: 210px;
+    height: auto;
     padding: 20px 20px 0 20px;
     background-color: white;
     border: 1px solid rgba(33, 63, 125, 0.06);
     box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
     border-radius: 4px;
-   box-sizing: border-box;
+    box-sizing: border-box;
+    overflow-x: scroll;
+
+    @include lg {
+      overflow-x: hidden !important;
+    }
+
 
     .detailsSection {
-      width: 70%;
-
       .detailsContainer {
         display: flex;
-        align-items: center;
 
         .profileDetailsContainer {
           display: flex;
@@ -101,28 +104,100 @@
 
 
         .usersTier {
-          margin-left: 20px;
+          display: flex;
+          align-items: center;
+          border-right: 1px solid rgba(84, 95, 125, 0.2);
 
+          .textStarsContainer {
+            margin: 0 30px;
+
+            h5 {
+              font-weight: 500;
+              font-size: 14px;
+              color: var(--text-color);
+            }
+
+            .starContainer {
+              margin-top: 10px;
+              display: flex;
+              gap: 8px;
+            }
+          }
+        }
+
+        .usersAccountContainer {
+          display: flex;
+          align-items: center;
+
+          .accountBalance {
+            margin-left: 30px;
+
+            h1 {
+              font-weight: 500;
+              font-size: 22px;
+              color: var(--primary-color);
+              margin-bottom: 12px;
+            }
+
+            h5 {
+              font-weight: 400;
+              font-size: 12px;
+              color: var(--primary-color);
+            }
+          }
         }
       }
+
+
     }
 
     .tabs {
-      margin-top: 55px;
+      margin-top: 40px;
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      padding: 0 10px;
+      grid-template-columns: repeat(6, 150px);
+      width: 100%;
+      position: relative;
 
-      h5 {
-        color: var(--secondary-color);
-        font-weight: 400;
-        font-size: 16px;
+      @include lg {
+        grid-template-columns: repeat(6, 1fr);
       }
+
+      @include xl {
+        margin-top: 55px;
+      }
+
+      .generalOptions {
+        border-bottom: 2px solid var(--secondary-color);
+        text-align: center;
+        justify-content: center;
+
+        h5 {
+          color: var(--secondary-color);
+          font-weight: 400;
+          font-size: 14px;
+
+          @include xl {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .options {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+
 
       h4 {
         color: rgba(0, 0, 0, 0.8);
         font-weight: 400;
-        font-size: 16px;
+        font-size: 14px;
+        font-family: var(--tabs-font);
+
+        @include xl {
+          font-size: 16px;
+        }
+      }
       }
     }
   }

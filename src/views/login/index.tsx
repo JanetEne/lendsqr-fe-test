@@ -5,8 +5,11 @@ import { ReactComponent as UnionLogo } from "assets/svg/Union.svg";
 import "./styles.scss";
 import ButtonComponent from "components/button";
 import InputComponent from "components/input";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container">
       <div className="leftSection">
@@ -30,7 +33,11 @@ const Login = () => {
           trailing={"SHOW"}
         />
         <h5>FORGOT PASSWORD?</h5>
-        <ButtonComponent text="LOG IN" variant="block" />
+        <ButtonComponent
+          text="LOG IN"
+          variant="block"
+          onClick={() => navigate("/app")}
+        />
       </div>
     </div>
   );

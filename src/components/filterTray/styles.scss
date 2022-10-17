@@ -40,4 +40,23 @@ width: 100px;
     }
   }
 
+  .selectContainer {
+    select {
+      height: 50px;
+      background: #FFFFFF;
+      border: 1px solid rgba(33, 63, 125, 0.2);
+      border-radius: 8px;
+      color: var(--text-color);
+      opacity: 0.6;
+      padding: 0 10px;
+      box-sizing: border-box;
+      width: 100%;
+      outline: none;
+  
+      &::placeholder {
+        color: var(--text-color);
+        opacity: 0.6;
+      }
+    }
+  }
 }
