@@ -29,10 +29,15 @@ import { INavItems } from "core/interfaces/nav";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import NavBar from "components/navBar";
 import "./layout.scss";
+import { setLogout } from "context/userContext";
 
 const Layout = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
   const location = useLocation();
+
+  const handleLogout = () => {
+    setLogout("/");
+  };
 
   const customerData: INavItems[] = [
     {
@@ -233,7 +238,7 @@ const Layout = () => {
           </ul>
 
           <ul>
-            <div className="logout" onClick={() => setToggle(false)}>
+            <div className="logout" onClick={handleLogout}>
               <li>
                 <Logout /> <span>Logout</span>
               </li>

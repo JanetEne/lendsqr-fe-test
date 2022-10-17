@@ -2,6 +2,7 @@ import { IUserResponse } from "core/interfaces/user";
 import { Constants } from "core/utils/constants";
 import { SecureStorage } from "core/utils/storage";
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const secureStorage = new SecureStorage();
 
@@ -16,6 +17,12 @@ interface Props {
 
 const UserContext = React.createContext<IUserContext>({} as IUserContext);
 export const UserProvider = UserContext.Provider;
+
+export const setLogout = (route: string) => {
+  console.log(route);
+  secureStorage.removeItem(Constants.userDetails);
+  window.location.href = route;
+};
 
 export const UserProviderContainer: React.FC<Props> = ({ children }) => {
   const [userDetails, setUserDetails] = React.useState<IUserResponse>(
