@@ -2,7 +2,6 @@ import { IUserResponse } from "core/interfaces/user";
 import { Constants } from "core/utils/constants";
 import { SecureStorage } from "core/utils/storage";
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const secureStorage = new SecureStorage();
 
